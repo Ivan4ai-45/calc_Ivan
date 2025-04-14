@@ -1,19 +1,19 @@
 import pandas as pd
-from pandas.core.interchange.dataframe_protocol import DataFrame
 
 
-class tracker():
+class Tracker():
+
     def __init__(self):
         self.columns = ['Категория', 'Сумма', 'Описание']
         self.data = pd.DataFrame(columns=self.columns)
 
-    def add_expense(self, amount: float, category: str, description: str):
+    def add_expense(self, amount: str, category: str, description: str):
         try:
-            new_row = pd.DataFrame([[category, amount, description]], columns=self.columns)
-            self.data = pd.concat([self.data, new_row], ignore_index=True)
-            print("Расход добавлен!")
-        except ValueError as e:
-            print("Некорректный ввод!")
+            amount = float(amount)
+            self.data.loc[len(self.data)] = [category, amount, description]
+            return "\nРасход добавлен!"
+        except ValueError:
+            return "Некорректный ввод!"
 
     def get_expense(self):
         if self.data.empty:
@@ -34,4 +34,4 @@ class tracker():
                 return "Данной категории нет в списке!"
             return output
         except ValueError as e:
-            return f"Ошибка Ввода: {e}"
+            return f"Ошибка ввода: {e}"
