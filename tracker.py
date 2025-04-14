@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-class Tracker():
+class Tracker:
 
     def __init__(self):
         self.columns = ['Категория', 'Сумма', 'Описание']
